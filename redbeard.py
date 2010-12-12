@@ -94,6 +94,16 @@ def key(key):
         output = r.get(key)
     return render_template('key.html', rtype=rtype, key=key, output=output)
 
+@app.route('/key/delete/<key>', methods=['POST'])
+def delete(key):
+    """Delete the key"""
+    
+    r = get_redis_connection(session)
+    
+    r.delete(key)
+    
+    return redirect(url_for('index'))
+
 @app.route('/key/save/<key>', methods=['POST'])
 def save(key):
     """ Update the value of a key. """
